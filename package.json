@@ -1,0 +1,40 @@
+{
+  "name": "eksi",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "Buffer": "0.0.0",
+    "eslint": "^4.19.1",
+    "events": "^2.0.0",
+    "fast-html-parser": "^1.0.1",
+    "react": "16.3.1",
+    "react-native": "^0.55.4",
+    "react-native-easy-grid": "^0.1.17",
+    "react-native-elements": "^0.19.1",
+    "react-native-keep-awake": "^3.1.0",
+    "react-native-progress-bar": "^0.1.2",
+    "react-native-vector-icons": "^4.6.0",
+    "realm": "^2.6.0",
+    "stream": "0.0.2",
+    "url": "^0.11.0",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {
+    "babel-jest": "22.4.4",
+    "babel-preset-react-native": "4.0.0",
+    "jest": "22.4.4",
+    "react-test-renderer": "16.3.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./fonts"
+    ]
+  }
+}

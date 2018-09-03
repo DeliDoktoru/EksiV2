@@ -1,12 +1,11 @@
 
 import React, { Component } from 'react';
-import { Col, Row, Grid } from "react-native-easy-grid";
+import {  Row, Grid } from "react-native-easy-grid";
 import ProgressBar from 'react-native-progress-bar';
 import Content from './Content';
 import MainMenu from './MainMenu';
 import KeepAwake from 'react-native-keep-awake';
-import AwesomeButton from 'react-native-really-awesome-button/src/themes/rick';
-import CardView from 'react-native-cardview';
+
 
 import {
   View, 

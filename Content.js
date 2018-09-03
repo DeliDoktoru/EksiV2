@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Col, Row, Grid } from "react-native-easy-grid";
-import CardView from 'react-native-cardview';
 import AwesomeButton from 'react-native-really-awesome-button/src/themes/rick'
 import {	
     Text,
@@ -11,11 +10,9 @@ import {
 	View,
 	TouchableOpacity,
 } from 'react-native';
-import { Kohana } from 'react-native-textinput-effects';
-import KeepAwake from 'react-native-keep-awake';
+
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconF from 'react-native-vector-icons/FontAwesome';
-import { Button } from 'react-native-elements';
 var controller = require('./controller.js').controller.prototype;
 export default class test extends Component {
     constructor(props) {

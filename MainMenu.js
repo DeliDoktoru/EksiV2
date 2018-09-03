@@ -9,8 +9,6 @@ import {
 	View,
 	TouchableOpacity,
 } from 'react-native';
-import KeepAwake from 'react-native-keep-awake';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import IconF from 'react-native-vector-icons/Feather';
 import IconI from 'react-native-vector-icons/Ionicons';
 import { Button } from 'react-native-elements';
