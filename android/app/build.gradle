@@ -156,6 +156,8 @@ dependencies {
 	compile project(':realm')
 	compile project(':react-native-keep-awake')
     compile project(':react-native-vector-icons')
+    debugCompile "com.facebook.stetho:stetho:1.4.2"
+    debugCompile "com.facebook.stetho:stetho-okhttp3:1.4.2"
 	
 }
 
