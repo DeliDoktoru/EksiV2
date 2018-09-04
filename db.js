@@ -222,4 +222,6 @@ db.prototype.deleteDb = function () {
     });
   });
 }
-
+db.prototype.test = function () {
+  return Realm.path();
+}

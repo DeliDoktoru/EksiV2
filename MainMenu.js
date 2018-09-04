@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Col, Row, Grid } from "react-native-easy-grid";
 import {	
     Text,
-	FlatList,
 	Image,
 	TextInput,
 	StyleSheet,
@@ -12,7 +11,8 @@ import {
 import IconF from 'react-native-vector-icons/Feather';
 import IconI from 'react-native-vector-icons/Ionicons';
 import { Button } from 'react-native-elements';
-
+//import { db } from './db';
+var db = require('./db.js').db.prototype;
 export default class test extends Component {
     constructor(props) {
         super(props); 
@@ -36,6 +36,7 @@ menuButtons(a,b){
 		
 	
 		<Row size={25} style={ [css.theme1,css.centerChildrens ]}>
+		<Text>{db.test()}</Text>
 		<Image
 		  style={{alignSelf: 'center',width: 250, height: 100}}
           source={require('./imgs/offline.png')}

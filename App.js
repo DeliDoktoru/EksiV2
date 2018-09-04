@@ -8,7 +8,6 @@ import KeepAwake from 'react-native-keep-awake';
 
 
 import {
-  View, 
   BackHandler,
 } from 'react-native';
 var controller = require('./controller.js').controller.prototype;
