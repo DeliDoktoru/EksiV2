@@ -11,8 +11,8 @@ import {
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconF from 'react-native-vector-icons/FontAwesome';
-var controller = require('./controller.js').controller.prototype;
-export default class test extends Component {
+import {controller} from './controller.js';
+export default class Content extends Component {
     constructor(props) {
         super(props); 
 	this.state = { list: [],title:"",pageno: this.props.parent.state.page.stayingpage};
@@ -24,7 +24,8 @@ export default class test extends Component {
         this.next = this.next.bind(this);
 		this.getContent();
 		this.getTitle();
-    }
+		}
+		
 	getTitle(){
 	  if(this.props.parent.state.change==1)
 	{
@@ -44,17 +45,20 @@ export default class test extends Component {
 	}
 	  
 	  
-  }
+	}
+	
 	componentDidMount() {
     this.props.onRef(this)
   }
   
   componentWillUnmount() {
     this.props.onRef(undefined)
-  }
+	}
+	
   backarrow(){
 	  this.props.parent.setState({change:0});
-  }
+	}
+	
 	getContent(){
 		
 	if(this.props.parent.state.change==1)
@@ -78,9 +82,13 @@ export default class test extends Component {
     else if(this.props.parent.state.change==4)
 	{ 
 	this.getEntrys(this.state.pageno);
-	}    
+	} 
+
 	this.getTitle();
- 	}
+
+	 }
+	 
+
 	getEntrys(a){
 
 	controller.getEntrys(this.props.parent.state.page.key,a).then(res=>{		
@@ -90,7 +98,7 @@ export default class test extends Component {
 	
 	}
 	getSelectedPage(a,b){ 
-	this.props.parent.setState({change:4,page:{key:a.key,pagelength:a.pagelength,stayingpage:a.stayingpage || 1,pagename:a.pagename} },()=>{ this.getContent(); });
+	this.props.parent.setState({change:4,page:{key:a.key,pagelength:a.pagelength,stayingpage:a.stayingpage || 1,pagename:a.pagename},pageno:a.stayingpage },()=>{ this.getContent(); });
 	
   }
 back()

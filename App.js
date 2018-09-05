@@ -5,12 +5,12 @@ import ProgressBar from 'react-native-progress-bar';
 import Content from './Content';
 import MainMenu from './MainMenu';
 import KeepAwake from 'react-native-keep-awake';
-
-
+import {db} from './db.js';
 import {
-  BackHandler,
+	BackHandler,
+	Text
 } from 'react-native';
-var controller = require('./controller.js').controller.prototype;
+import {controller} from './controller.js';
 
 
 
@@ -20,6 +20,7 @@ export default class App extends Component {
     this.state = { link:"",hide:true,progress:0,change:0,page:{key:1,pagelength:1,stayingpage:1,pagename:""}};
  	this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
 	KeepAwake.activate();
+
 
   }
 componentWillMount() {
@@ -72,12 +73,14 @@ handleBackButtonClick() {
 	
 	
     return (
-	
+			
       
-      <Grid style={{backgroundColor: '#393938'}} >
-
+    <Grid style={{backgroundColor: '#393938'}} >
+			
 		<KeepAwake />
-		
+		<Row size={5} style={{backgroundColor: '#FFFFFF'}}>
+			<Text>-</Text>
+		</Row>	
 		{progress}
 	
 		<Row size={96}>
