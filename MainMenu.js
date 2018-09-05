@@ -11,8 +11,10 @@ import {
 import IconF from 'react-native-vector-icons/Feather';
 import IconI from 'react-native-vector-icons/Ionicons';
 import { Button } from 'react-native-elements';
+import {observer} from 'mobx-react';
+import {store} from './store.js';
 
-
+@observer
 export default class MainMenu extends Component {
     constructor(props) {
         super(props); 

@@ -8,10 +8,13 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 } from 'react-native';
-
+import {observer} from 'mobx-react';
+import {store} from './store.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconF from 'react-native-vector-icons/FontAwesome';
 import {controller} from './controller.js';
+
+@observer
 export default class Content extends Component {
     constructor(props) {
         super(props); 

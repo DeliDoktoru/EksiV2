@@ -5,7 +5,8 @@ import ProgressBar from 'react-native-progress-bar';
 import Content from './Content';
 import MainMenu from './MainMenu';
 import KeepAwake from 'react-native-keep-awake';
-import {db} from './db.js';
+import {observer} from 'mobx-react';
+import {store} from './store.js';
 import {
 	BackHandler,
 	Text
@@ -13,11 +14,11 @@ import {
 import {controller} from './controller.js';
 
 
-
+@observer
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { link:"",hide:true,progress:0,change:0,page:{key:1,pagelength:1,stayingpage:1,pagename:""}};
+    this.state = { link:"",hide:true,progress:0,page:{key:1,pagelength:1,stayingpage:1,pagename:""}};
  	this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
 	KeepAwake.activate();
 
@@ -30,8 +31,8 @@ componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
 }
 handleBackButtonClick() {
-  if(this.state.change!=0)
-  {  this.setState({change:0});
+  if(store.change!=0)
+  {  store.change=0;
   return true;}
   return false;
 }
@@ -60,7 +61,7 @@ handleBackButtonClick() {
 			</Row> );
 	}
 	
-	 if(this.state.change==0)
+	 if(store.change==0)
 	{
 		navi=<MainMenu parent={this}/>;
 		
@@ -86,11 +87,6 @@ handleBackButtonClick() {
 		<Row size={96}>
 		{navi}
 		</Row>		
-			
-       
-		
-	
-        
       </Grid>
 
 
