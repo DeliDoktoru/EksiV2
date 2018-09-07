@@ -9,7 +9,7 @@ import {observer} from 'mobx-react';
 import {Store} from './store.js';
 import {
 	BackHandler,
-	Text
+	Text,ScrollView
 } from 'react-native';
 import {controller} from './controller.js';
 
@@ -62,10 +62,10 @@ handleBackButtonClick() {
 		navi=<Content/>;	
 	}
 	//test için
-	if(Store.test!="")
+	if(Store.test!="" && Store.test!=null)
 	{
-		test=	<Row size={5} style={{backgroundColor: '#FFFFFF'}} >
-		<Text>{Store.test}</Text>
+		test=	<Row size={50} style={{backgroundColor: '#FFFFFF'}} >
+		<ScrollView><Text>{Store.test}</Text></ScrollView>
 	</Row>;	
 	}
 

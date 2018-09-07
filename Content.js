@@ -19,7 +19,7 @@ export default class Content extends Component {
     constructor(props) {
 		super(props); 
 		Store.Content=this;
-	this.state = { list: [],title:"",pageno: Store.page.stayingpage};
+	this.state = { list: [],title:"",pageno: Store.page.stayingpage,endScroll:false};
 	 this.backarrow = this.backarrow.bind(this);
 	this.getTitle = this.getTitle.bind(this);
         this.getContent = this.getContent.bind(this);
@@ -151,10 +151,10 @@ next()
 
 			} />   }
 			else{
-					l=<FlatList ref={(ref) => { this.flatlist = ref; }}
-          data={this.state.list}
+					l=<FlatList ref={(ref) => { this.flatlist = ref;  }}
+		  data={this.state.list}
+		  onEndReached={() => this.setState({endScroll:true})}
           renderItem={({item,index}) => 
-	
 		  <Grid style={{minHeight: 50,paddingBottom:10,paddingTop:10,backgroundColor:index%2!=0?'#5d9133':'#7aba40',borderBottomWidth: 1,borderBottomColor:"#FFFFFF"}}>
 		  <Col  >
 		  <Text style={css.inputStyle3}>
@@ -206,7 +206,10 @@ next()
 		<Row size={90} style={{ marginTop:15,justifyContent: 'center',backgroundColor:'#FFFFFF'}}>
 		 	{l}
 		</Row>
-			{b}				
+		
+		
+			{b}			
+		
 		</Grid>
 		
         );
