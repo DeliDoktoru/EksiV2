@@ -18,7 +18,7 @@ import {Store} from './store.js';
 export default class MainMenu extends Component {
     constructor(props) {
         super(props); 
-
+		Store.MainMenu=this;
     }
 
  
@@ -60,7 +60,7 @@ export default class MainMenu extends Component {
 	<TextInput  value={Store.link} editable={Store.hide} onChangeText={(a) => Store.link=a} style={{	  width:200,color:"#FFFFFF"}} />
 	</View>
 	
-	<Button	borderRadius={8} onPress={this.props.parent.downloadPage.bind(this,this.props.parent)}	fontFamily="MarkPro-Bold"	fontSize={26}  title='KAYDET'   buttonStyle={{	marginTop:20,    backgroundColor: "#393938",    width: 200,    height: 70,  }}/> 
+	<Button	borderRadius={8} onPress={()=>{Store.downloadPage()}}	fontFamily="MarkPro-Bold"	fontSize={26}  title='KAYDET'   buttonStyle={{	marginTop:20,    backgroundColor: "#393938",    width: 200,    height: 70,  }}/> 
 	
 	
 	</Row >

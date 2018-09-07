@@ -4,7 +4,7 @@ import {Store} from './store.js';
 
 
 export const controller = {
-    save: function (link, obj) {
+    save: function (link) {
         return new Promise(function (resolve, reject) {
             network.getPageContent(link, 0).then(res => {
                 var pagelength = network.getPageLength(res);
@@ -24,8 +24,9 @@ export const controller = {
                     }
 
                     Store.progress=0;
+                    //sayfayı tazelemek için content classındaki getcontent'i çağırıyor
                     if (Store.change != 0 && Store.change != 4)
-                        obj.child.getContent(obj.child);
+                        Store.Content.getContent(Store.Content);
                     resolve();
                 });
 

@@ -17,7 +17,8 @@ import {controller} from './controller.js';
 @observer
 export default class Content extends Component {
     constructor(props) {
-        super(props); 
+		super(props); 
+		Store.Content=this;
 	this.state = { list: [],title:"",pageno: Store.page.stayingpage};
 	 this.backarrow = this.backarrow.bind(this);
 	this.getTitle = this.getTitle.bind(this);
@@ -49,14 +50,7 @@ export default class Content extends Component {
 	  
 	  
 	}
-	
-	componentDidMount() {
-    this.props.onRef(this)
-  }
-  
-  componentWillUnmount() {
-    this.props.onRef(undefined)
-	}
+
 	
   backarrow(){
 	  Store.change=0;

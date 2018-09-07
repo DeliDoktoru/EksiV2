@@ -37,24 +37,6 @@ handleBackButtonClick() {
   return false;
 }
 
-   downloadPage(p,t) {
-	if(Store.hide==true)
-	{   Store.hide=false;
-		//linki a ya atıyoruz
-		let a=Store.link;
-		Store.link="İndiriliyor...";
-		if(a!=null && (a.search("http://eksisozluk.com")!=-1 || a.search("https://eksisozluk.com")!=-1))
-		{ 
-			
-			
-			controller.save(a,p).then(res=>{
-			Store.hide=true;
-			Store.link="";
-		});
-	
-	}
-	}
-  }
   
   render() {
 	let navi, bottom,progress,test;
@@ -71,13 +53,13 @@ handleBackButtonClick() {
 	
 	 if(Store.change==0)
 	{
-		navi=<MainMenu parent={this}/>;
+		navi=<MainMenu/>;
 		
 	}
 	else 
 	{
 		
-		navi=<Content parent={this} onRef={ref => (this.child = ref)} />;	
+		navi=<Content/>;	
 	}
 	//test için
 	if(Store.test!="")
