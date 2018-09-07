@@ -6,7 +6,7 @@ import Content from './Content';
 import MainMenu from './MainMenu';
 import KeepAwake from 'react-native-keep-awake';
 import {observer} from 'mobx-react';
-import {store} from './store.js';
+import {Store} from './store.js';
 import {
 	BackHandler,
 	Text
@@ -18,7 +18,7 @@ import {controller} from './controller.js';
 export default class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { link:"",hide:true,progress:0,page:{key:1,pagelength:1,stayingpage:1,pagename:""}};
+    
  	this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
 	KeepAwake.activate();
 
@@ -31,37 +31,45 @@ componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
 }
 handleBackButtonClick() {
-  if(store.change!=0)
-  {  store.change=0;
+  if(Store.change!=0)
+  {  Sore.change=0;
   return true;}
   return false;
 }
 
    downloadPage(p,t) {
-	if(p.state.hide==true)
-	{   p.setState({ hide:false,link:"İndiriliyor..."});
-		let a=p.state.link;
-		if(a=!null && (a.search("http://eksisozluk.com")!=-1 || a.search("https://eksisozluk.com")!=-1))
-		{ controller.save(p.state.link,p).then(res=>{
-			p.setState({ hide:true,link:""});
-		});}
+	if(Store.hide==true)
+	{   Store.hide=false;
+		//linki a ya atıyoruz
+		let a=Store.link;
+		Store.link="İndiriliyor...";
+		if(a!=null && (a.search("http://eksisozluk.com")!=-1 || a.search("https://eksisozluk.com")!=-1))
+		{ 
+			
+			
+			controller.save(a,p).then(res=>{
+			Store.hide=true;
+			Store.link="";
+		});
+	
+	}
 	}
   }
   
   render() {
-	let navi, bottom,progress;
-	if(!this.state.hide)
+	let navi, bottom,progress,test;
+	if(!Store.hide)
 	{progress=(<Row size={4}>
 		<ProgressBar
           fillStyle={{backgroundColor: '#5d9133'}}
           backgroundStyle={{backgroundColor: '#5d9133', borderRadius: 2}}
           style={{margin: 10, flex: 1}}
-          progress={this.state.progress}
+          progress={Store.progress}
         /> 
 			</Row> );
 	}
 	
-	 if(store.change==0)
+	 if(Store.change==0)
 	{
 		navi=<MainMenu parent={this}/>;
 		
@@ -71,17 +79,22 @@ handleBackButtonClick() {
 		
 		navi=<Content parent={this} onRef={ref => (this.child = ref)} />;	
 	}
-	
-	
-    return (
+	//test için
+	if(Store.test!="")
+	{
+		test=	<Row size={5} style={{backgroundColor: '#FFFFFF'}} >
+		<Text>{Store.test}</Text>
+	</Row>;	
+	}
+
+   return (
 			
       
     <Grid style={{backgroundColor: '#393938'}} >
 			
 		<KeepAwake />
-		<Row size={5} style={{backgroundColor: '#FFFFFF'}}>
-			<Text>-</Text>
-		</Row>	
+		{test}	
+
 		{progress}
 	
 		<Row size={96}>

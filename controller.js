@@ -1,6 +1,6 @@
 import {db} from './db.js';
 import {network} from './network.js';
-
+import {Store} from './store.js';
 
 
 export const controller = {
@@ -12,13 +12,10 @@ export const controller = {
 
                     if (ress != 0) {
                         var d = 1 / pagelength;
-                        obj.setState({
-                            progress: 0
-                        });
+                        Store.progress=0;
+                        
                         for (var i = 1; i <= pagelength; i++) {
-                            obj.setState({
-                                progress: d * i
-                            });
+                            Store.progress= d * i;      
                             await network.getPageContent(link, i).then(resss => {
                                 db.saveEntrys(ress, i, network.getEntrys(resss));
                             });
@@ -26,10 +23,8 @@ export const controller = {
                         }
                     }
 
-                    obj.setState({
-                        progress: 0
-                    });
-                    if (obj.state.change != 0 && obj.state.change != 4)
+                    Store.progress=0;
+                    if (Store.change != 0 && Store.change != 4)
                         obj.child.getContent(obj.child);
                     resolve();
                 });

@@ -12,7 +12,7 @@ import IconF from 'react-native-vector-icons/Feather';
 import IconI from 'react-native-vector-icons/Ionicons';
 import { Button } from 'react-native-elements';
 import {observer} from 'mobx-react';
-import {store} from './store.js';
+import {Store} from './store.js';
 
 @observer
 export default class MainMenu extends Component {
@@ -20,12 +20,8 @@ export default class MainMenu extends Component {
         super(props); 
 
     }
-menuButtons(a,b){
-	this.props.parent.setState({change:a});
-	}
+
  
-  	
-	
 
     render() {
 
@@ -61,7 +57,7 @@ menuButtons(a,b){
 	<Text style={{ fontFamily: "MarkPro-Bold", fontSize: 30,color:"#FFFFFF",marginTop:10}}>LİNK</Text>
 	<View style={[css.theme1,css.centerChildrens,css.inputStyle]}>
 	<Text style={{fontFamily: "MarkPro-Bold",fontSize: 16,color:'#FFFFFF',paddingRight:5,paddingLeft:5}}>Url</Text>
-	<TextInput  value={this.props.parent.state.link} editable={this.props.parent.state.hide} onChangeText={(a) => this.props.parent.setState({link:a})} style={{	  width:200,color:"#FFFFFF"}} />
+	<TextInput  value={Store.link} editable={Store.hide} onChangeText={(a) => Store.link=a} style={{	  width:200,color:"#FFFFFF"}} />
 	</View>
 	
 	<Button	borderRadius={8} onPress={this.props.parent.downloadPage.bind(this,this.props.parent)}	fontFamily="MarkPro-Bold"	fontSize={26}  title='KAYDET'   buttonStyle={{	marginTop:20,    backgroundColor: "#393938",    width: 200,    height: 70,  }}/> 
@@ -72,7 +68,7 @@ menuButtons(a,b){
 	<Col size={30} style={{backgroundColor:"#393938",borderTopWidth: 5,borderTopColor:"#f2af54"}}>
 	 <TouchableOpacity
         style={[css.centerChildrens,{flex:1}]}
-         onPress={this.menuButtons.bind(this,1)}
+         onPress={()=>{Store.change=1}}
        >
 	   <View  style={css.centerChildrens}>
 		<IconF name="save" size={40} color="#FFFFFF" />
@@ -87,7 +83,7 @@ menuButtons(a,b){
 	<Col size={30} style={{backgroundColor:"#393938",borderTopWidth: 5,borderTopColor:"#009b9c"}}>
 		 <TouchableOpacity
         style={[css.centerChildrens,{flex:1}]}
-         onPress={this.menuButtons.bind(this,2)}
+         onPress={()=>{Store.change=2}}
        >
 	   <View  style={css.centerChildrens}>
 		<IconI name="ios-book" size={40} color="#FFFFFF" />
@@ -102,7 +98,7 @@ menuButtons(a,b){
 	<Col size={30} style={{backgroundColor:"#393938",borderTopWidth: 5,borderTopColor:"#e04660"}}>
 		 <TouchableOpacity
         style={[css.centerChildrens,{flex:1}]}
-         onPress={this.menuButtons.bind(this,3)}
+         onPress={()=>{Store.change=3}}
        >
 	   <View  style={css.centerChildrens}>
 		<IconF name="book" size={40} color="#FFFFFF" />

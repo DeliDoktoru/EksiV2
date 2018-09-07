@@ -9,7 +9,7 @@ import {
 	TouchableOpacity,
 } from 'react-native';
 import {observer} from 'mobx-react';
-import {store} from './store.js';
+import {Store} from './store.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconF from 'react-native-vector-icons/FontAwesome';
 import {controller} from './controller.js';
@@ -18,7 +18,7 @@ import {controller} from './controller.js';
 export default class Content extends Component {
     constructor(props) {
         super(props); 
-	this.state = { list: [],title:"",pageno: this.props.parent.state.page.stayingpage};
+	this.state = { list: [],title:"",pageno: Store.page.stayingpage};
 	 this.backarrow = this.backarrow.bind(this);
 	this.getTitle = this.getTitle.bind(this);
         this.getContent = this.getContent.bind(this);
@@ -30,21 +30,21 @@ export default class Content extends Component {
 		}
 		
 	getTitle(){
-	  if(this.props.parent.state.change==1)
+	  if(Store.change==1)
 	{
 		this.state.title="TÜMÜ";
 	}	
-	else if(this.props.parent.state.change==2)
+	else if(Store.change==2)
 	{
 		this.state.title="DEVAM EDİLECEKLER";
 	}
-	else if(this.props.parent.state.change==3)
+	else if(Store.change==3)
 	{
 		this.state.title="BAŞLAMADIKLARIM";
 	}
-	else if(this.props.parent.state.change==4)
+	else if(Store.change==4)
 	{
-		this.state.title=this.props.parent.state.page.pagename;
+		this.state.title=Store.page.pagename;
 	}
 	  
 	  
@@ -59,32 +59,33 @@ export default class Content extends Component {
 	}
 	
   backarrow(){
-	  this.props.parent.setState({change:0});
+	  Store.change=0;
+	
 	}
 	
 	getContent(){
 		
-	if(this.props.parent.state.change==1)
+	if(Store.change==1)
 	{
 		controller.getPages().then(res => {
          this.setState({ list: res});
        });
 	}	
-	else if(this.props.parent.state.change==2)
+	else if(Store.change==2)
 	{
 		controller.getPagesC().then(res => {
          this.setState({ list: res});
        });
 	}
-	else if(this.props.parent.state.change==3)
+	else if(Store.change==3)
 	{
 		controller.getPagesN().then(res => {
          this.setState({ list: res});
        });
 	}
-    else if(this.props.parent.state.change==4)
+    else if(Store.change==4)
 	{ 
-	this.getEntrys(this.state.pageno);
+	this.getEntrys(Store.page.stayingpage);
 	} 
 
 	this.getTitle();
@@ -93,33 +94,40 @@ export default class Content extends Component {
 	 
 
 	getEntrys(a){
-
-	controller.getEntrys(this.props.parent.state.page.key,a).then(res=>{		
+	controller.getEntrys(Store.page.key,a).then(res=>{		
 	 this.setState({ list: res});
    });
-   controller.updateStayingPage(this.props.parent.state.page.key,parseInt(a));
+  
 	
 	}
 	getSelectedPage(a,b){ 
-	this.props.parent.setState({change:4,page:{key:a.key,pagelength:a.pagelength,stayingpage:a.stayingpage || 1,pagename:a.pagename},pageno:a.stayingpage },()=>{ this.getContent(); });
+		Store.change=4,
+		Store.page.key=a.key,
+		Store.page.pagelength=a.pagelength,
+		Store.page.stayingpage=a.stayingpage || 1,
+		Store.page.pagename=a.pagename,
+		this.setState({ pageno: a.stayingpage || 1});
+		this.getContent();
 	
   }
 back()
 {	let a=this.state.pageno;
 	if(a>1)
 	{	this.setState({pageno:a-1});
-		this.getEntrys(a-1);				
+		this.getEntrys(a-1);
+		controller.updateStayingPage(Store.page.key,parseInt(a-1));				
 		this.flatlist.scrollToOffset({ offset: 0, animated: false });
 	}
 }
 next()
 {	
 	let a=this.state.pageno;
-	let b=this.props.parent.state.page.pagelength;
+	let b=Store.page.pagelength;
 	if( b!=null && b>a)
 	{	
 		this.setState({pageno:a+1});
-		this.getEntrys(a+1);	
+		this.getEntrys(a+1);
+		controller.updateStayingPage(Store.page.key,parseInt(a+1));	
 		this.flatlist.scrollToOffset({ offset: 0, animated: false });
 	}
 }
@@ -128,7 +136,7 @@ next()
 		let b;
 			if(this.state.list[0] != null) 
 		{ 
-			if(this.props.parent.state.change!=4){
+			if(Store.change!=4){
 			l=<FlatList ref={(ref) => { this.flatlist = ref; }}
           data={this.state.list}
           renderItem={({item,index}) => 
@@ -166,7 +174,7 @@ next()
 		<AwesomeButton backgroundDarker='#7aba40'  borderColor='#7aba40' raiseLevel={2} style={{alignSelf: 'center',marginBottom:5}} width={50} height={40} type="secondary"   onPress={this.back} ><IconF name="angle-left"  color="#000"  /></AwesomeButton>
         </Col>
         <Col>
-        <Text style={{fontFamily: "MarkPro-Bold",fontSize: 14,color:'#393938',textAlign: 'center',marginTop:10}}>{this.state.pageno}/{this.props.parent.state.page.pagelength}</Text>
+        <Text style={{fontFamily: "MarkPro-Bold",fontSize: 14,color:'#393938',textAlign: 'center',marginTop:10}}>{this.state.pageno}/{Store.page.pagelength}</Text>
         </Col>
         <Col >
 		<AwesomeButton backgroundDarker='#7aba40'  borderColor='#7aba40' raiseLevel={2} style={{alignSelf: 'center',marginBottom:5}} width={50} height={40} type="secondary"   onPress={this.next} ><IconF name="angle-right"  color="#000"  /></AwesomeButton>               
