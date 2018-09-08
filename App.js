@@ -64,7 +64,7 @@ handleBackButtonClick() {
 	//test için
 	if(Store.test!="" && Store.test!=null)
 	{
-		test=	<Row size={50} style={{backgroundColor: '#FFFFFF'}} >
+		test=	<Row size={5} style={{backgroundColor: '#FFFFFF'}} >
 		<ScrollView><Text>{Store.test}</Text></ScrollView>
 	</Row>;	
 	}

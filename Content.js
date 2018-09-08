@@ -13,13 +13,15 @@ import {Store} from './store.js';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconF from 'react-native-vector-icons/FontAwesome';
 import {controller} from './controller.js';
+import RF from "react-native-responsive-fontsize";
+import * as Animatable from 'react-native-animatable';
 
 @observer
 export default class Content extends Component {
     constructor(props) {
 		super(props); 
 		Store.Content=this;
-	this.state = { list: [],title:"",pageno: Store.page.stayingpage,endScroll:false};
+	this.state = { list: [],title:"",pageno: Store.page.stayingpage};
 	 this.backarrow = this.backarrow.bind(this);
 	this.getTitle = this.getTitle.bind(this);
         this.getContent = this.getContent.bind(this);
@@ -126,8 +128,7 @@ next()
 	}
 }
     render() {
-		let l;
-		let b;
+		let l,b,scrollY=0;
 			if(this.state.list[0] != null) 
 		{ 
 			if(Store.change!=4){
@@ -151,19 +152,18 @@ next()
 
 			} />   }
 			else{
+				
 					l=<FlatList ref={(ref) => { this.flatlist = ref;  }}
 		  data={this.state.list}
-		  onEndReached={() => this.setState({endScroll:true})}
-          renderItem={({item,index}) => 
-		  <Grid style={{minHeight: 50,paddingBottom:10,paddingTop:10,backgroundColor:index%2!=0?'#5d9133':'#7aba40',borderBottomWidth: 1,borderBottomColor:"#FFFFFF"}}>
+		   renderItem={({item,index}) => 
+		  <Grid style={{minHeight: 50,paddingBottom:(this.state.list.length-1)==index?50:10,paddingTop:10,backgroundColor:index%2!=0?'#5d9133':'#7aba40',borderBottomWidth: 1,borderBottomColor:"#FFFFFF"}}>
 		  <Col  >
 		  <Text style={css.inputStyle3}>
 			   {item.content}
           </Text>
 		  </Col>	
 		  </Grid> 	} /> 
-				
-				b=<Grid style={{position: 'absolute',bottom:  0}}>
+			b=<Grid style={{position: 'absolute',bottom:  0,backgroundColor:'#FFFFFF00'}}>
 	    <Col >
 		<AwesomeButton backgroundDarker='#7aba40'  borderColor='#7aba40' raiseLevel={2} style={{alignSelf: 'center',marginBottom:5}} width={50} height={40} type="secondary"   onPress={this.back} ><IconF name="angle-left"  color="#000"  /></AwesomeButton>
         </Col>
@@ -174,7 +174,7 @@ next()
 		<AwesomeButton backgroundDarker='#7aba40'  borderColor='#7aba40' raiseLevel={2} style={{alignSelf: 'center',marginBottom:5}} width={50} height={40} type="secondary"   onPress={this.next} ><IconF name="angle-right"  color="#000"  /></AwesomeButton>               
         </Col>   
 		</Grid>
-				
+		
 					}}
 		else
 			l=<Text style={{textAlign: 'center',fontFamily: "MarkPro-Bold", fontSize: 16,color:"#393938"}}>Kayıt bulunamadı.</Text>
@@ -203,10 +203,9 @@ next()
 		  resizeMode="contain" />
 		</Col>
 		</Row>
-		<Row size={90} style={{ marginTop:15,justifyContent: 'center',backgroundColor:'#FFFFFF'}}>
+		<Row size={90} style={{ justifyContent: 'center',backgroundColor:'#FFFFFF'}}>
 		 	{l}
 		</Row>
-		
 		
 			{b}			
 		
@@ -237,7 +236,7 @@ const css = StyleSheet.create({
   inputStyle2:{
 	  textAlign: 'center',
 	  fontFamily: "MarkPro-Bold", 
-	  fontSize: 14,
+	  fontSize: RF(2.5),
 	  color:"#FFFFFF",
 	  paddingLeft:2,
 	  paddingRight:2
