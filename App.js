@@ -12,7 +12,7 @@ import {
 	Text,ScrollView
 } from 'react-native';
 import {controller} from './controller.js';
-
+import Settings from './Settings';
 
 @observer
 export default class App extends Component {
@@ -32,7 +32,7 @@ componentWillUnmount() {
 }
 handleBackButtonClick() {
   if(Store.change!=0)
-  {  Sore.change=0;
+  {  Store.change=0;
   return true;}
   return false;
 }
@@ -54,17 +54,20 @@ handleBackButtonClick() {
 	 if(Store.change==0)
 	{
 		navi=<MainMenu/>;
-		
 	}
-	else 
+	else if(Store.change==1 || Store.change==2 || Store.change==3|| Store.change==4  )
 	{
-		
 		navi=<Content/>;	
+	}
+	else if(Store.change==5)
+	{
+		navi=<Settings/>;
 	}
 	//test için
 	if(Store.test!="" && Store.test!=null)
 	{
 		test=	<Row size={50} style={{backgroundColor: '#FFFFFF'}} >
+			<Settings/>
 		<ScrollView><Text>{Store.test}</Text></ScrollView>
 	</Row>;	
 	}
@@ -75,6 +78,7 @@ handleBackButtonClick() {
     <Grid style={{backgroundColor: '#393938'}} >
 			
 		<KeepAwake />
+	
 		{test}	
 
 		{progress}

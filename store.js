@@ -17,7 +17,7 @@ export const Store={
  //Sayfayla ilgili bilgiler - Obj
  @observable page:{key:1,pagelength:1,stayingpage:1,pagename:""},
  //test etmek için - String
- @observable test:null,
+ @observable test:"",
  //Sayfalarını indirmeye başlatmak
  @action downloadPage(){
     if(Store.hide==true)

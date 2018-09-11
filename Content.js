@@ -14,17 +14,18 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconF from 'react-native-vector-icons/FontAwesome';
 import {controller} from './controller.js';
 
+
 @observer
 export default class Content extends Component {
     constructor(props) {
 		super(props); 
 		Store.Content=this;
-	this.state = { list: [],title:"",pageno: Store.page.stayingpage,endScroll:false};
-	 this.backarrow = this.backarrow.bind(this);
-	this.getTitle = this.getTitle.bind(this);
+		this.state = { list: [],title:"",pageno: Store.page.stayingpage,endScroll:false};
+	 	this.backarrow = this.backarrow.bind(this);
+		this.getTitle = this.getTitle.bind(this);
         this.getContent = this.getContent.bind(this);
 		this.getEntrys = this.getEntrys.bind(this);
-		 this.back = this.back.bind(this);
+		this.back = this.back.bind(this);
         this.next = this.next.bind(this);
 		this.getContent();
 		this.getTitle();
@@ -52,7 +53,7 @@ export default class Content extends Component {
 	}
 
 	
-  backarrow(){
+  	backarrow(){
 	  Store.change=0;
 	
 	}
@@ -90,7 +91,7 @@ export default class Content extends Component {
 	getEntrys(a){
 	controller.getEntrys(Store.page.key,a).then(res=>{		
 	 this.setState({ list: res});
-   });
+  	});
   
 	
 	}
@@ -103,18 +104,18 @@ export default class Content extends Component {
 		this.setState({ pageno: a.stayingpage || 1});
 		this.getContent();
 	
-  }
-back()
-{	let a=this.state.pageno;
+ 	}
+	back()
+	{	let a=this.state.pageno;
 	if(a>1)
 	{	this.setState({pageno:a-1});
 		this.getEntrys(a-1);
 		controller.updateStayingPage(Store.page.key,parseInt(a-1));				
 		this.flatlist.scrollToOffset({ offset: 0, animated: false });
 	}
-}
-next()
-{	
+	}
+	next()		
+	{	
 	let a=this.state.pageno;
 	let b=Store.page.pagelength;
 	if( b!=null && b>a)
@@ -124,14 +125,14 @@ next()
 		controller.updateStayingPage(Store.page.key,parseInt(a+1));	
 		this.flatlist.scrollToOffset({ offset: 0, animated: false });
 	}
-}
+	}
     render() {
-		let l;
-		let b;
+		let listRender,bottomRender;
+		
 			if(this.state.list[0] != null) 
 		{ 
 			if(Store.change!=4){
-			l=<FlatList ref={(ref) => { this.flatlist = ref; }}
+			listRender=<FlatList ref={(ref) => { this.flatlist = ref; }}
           data={this.state.list}
           renderItem={({item,index}) => 
 		  <TouchableOpacity onPress={this.getSelectedPage.bind(this,item)}>
@@ -151,7 +152,7 @@ next()
 
 			} />   }
 			else{
-					l=<FlatList ref={(ref) => { this.flatlist = ref;  }}
+				listRender=<FlatList ref={(ref) => { this.flatlist = ref;  }}
 		  data={this.state.list}
 		  onEndReached={() => this.setState({endScroll:true})}
           renderItem={({item,index}) => 
@@ -163,7 +164,7 @@ next()
 		  </Col>	
 		  </Grid> 	} /> 
 				
-				b=<Grid style={{position: 'absolute',bottom:  0}}>
+				bottomRender=<Grid style={{position: 'absolute',bottom:  0}}>
 	    <Col >
 		<AwesomeButton backgroundDarker='#7aba40'  borderColor='#7aba40' raiseLevel={2} style={{alignSelf: 'center',marginBottom:5}} width={50} height={40} type="secondary"   onPress={this.back} ><IconF name="angle-left"  color="#000"  /></AwesomeButton>
         </Col>
@@ -177,7 +178,7 @@ next()
 				
 					}}
 		else
-			l=<Text style={{textAlign: 'center',fontFamily: "MarkPro-Bold", fontSize: 16,color:"#393938"}}>Kayıt bulunamadı.</Text>
+			listRender=<Text style={{textAlign: 'center',fontFamily: "MarkPro-Bold", fontSize: 16,color:"#393938"}}>Kayıt bulunamadı.</Text>
 		
 		
 
@@ -203,12 +204,14 @@ next()
 		  resizeMode="contain" />
 		</Col>
 		</Row>
+		
 		<Row size={90} style={{ marginTop:15,justifyContent: 'center',backgroundColor:'#FFFFFF'}}>
-		 	{l}
+			
+		 	{listRender}
 		</Row>
 		
 		
-			{b}			
+			{bottomRender}			
 		
 		</Grid>
 		
