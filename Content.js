@@ -16,6 +16,7 @@ import {controller} from './controller.js';
 import RF from "react-native-responsive-fontsize";
 import IconI from 'react-native-vector-icons/Ionicons';
 import AnimatedHideView from 'react-native-animated-hide-view';
+
 @observer
 export default class Content extends Component {
     constructor(props) {
@@ -155,10 +156,11 @@ export default class Content extends Component {
 			else{
 				listRender=<FlatList ref={(ref) => { this.flatlist = ref;  }}
 		  data={this.state.list}
+		  extraData={this.state}
 		   renderItem={({item,index}) => 
 		  <Grid style={{minHeight: 50,paddingBottom:(this.state.list.length-1)==index?50:10,paddingTop:15,backgroundColor:index%2!=0?'#5d9133':'#7aba40',borderBottomWidth: 1,borderBottomColor:"#FFFFFF"}}>
 		  <Row onPress={()=>{	
-			  this.setState({fade:index},()=>{Store.test=""+this.state.fade;}); 
+			  this.setState(x=>{return {fade:index==x.fade?-1:index}}); 
 			  
 			  }}>
 		  <Text style={[css.inputStyle3,{textAlign: 'left'}]}>
